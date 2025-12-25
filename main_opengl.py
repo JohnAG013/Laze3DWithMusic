@@ -249,12 +249,8 @@ class Game:
         try:
             pygame.mixer.music.load(track)
             pygame.mixer.music.set_volume(self.volume)
-            pygame.mixer.music.play(0) # Play once
-            pygame.mixer.music.set_endevent(USEREVENT) # Event when music ends
-            # We will handle looping manually in the main loop if we want different tracks, 
-            # or just here with -1 for same track loop. 
-            # Let's loop the playlist:
-            pygame.mixer.music.play() 
+            pygame.mixer.music.set_endevent(USEREVENT)
+            pygame.mixer.music.play(0) 
         except Exception as e:
             print(f"Error playing {track}: {e}")
 
@@ -460,6 +456,8 @@ class Game:
                 if event.type == VIDEORESIZE:
                     self.width, self.height = event.w, event.h
                     glViewport(0, 0, self.width, self.height)
+                if event.type == USEREVENT:
+                    self.play_random_music()
                 if event.type == KEYDOWN:
                     if event.key == K_UP:
                         self.selected_option = (self.selected_option - 1) % len(self.menu_options)
@@ -515,6 +513,8 @@ class Game:
                 if event.type == VIDEORESIZE:
                     self.width, self.height = event.w, event.h
                     glViewport(0, 0, self.width, self.height)
+                if event.type == USEREVENT:
+                    self.play_random_music()
                 if event.type == KEYDOWN:
                     if event.key == K_UP:
                         self.selected_setting = (self.selected_setting - 1) % len(self.settings_options)
@@ -562,6 +562,8 @@ class Game:
                 if event.type == VIDEORESIZE:
                     self.width, self.height = event.w, event.h
                     glViewport(0, 0, self.width, self.height)
+                if event.type == USEREVENT:
+                    self.play_random_music()
                 if event.type == KEYDOWN:
                     if event.key == K_UP:
                         self.selected_option = (self.selected_option - 1) % len(options)
